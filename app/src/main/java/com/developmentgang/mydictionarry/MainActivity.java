@@ -2,12 +2,16 @@ package com.developmentgang.mydictionarry;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +28,8 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 public class MainActivity extends AppCompatActivity {
    TextView sourceLanguage,detectedLanguage;
    Button trans;
-
+   Spinner languageSpinner;
+   String [] selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,22 @@ public class MainActivity extends AppCompatActivity {
          sourceLanguage = findViewById(R.id.sourceLanguge);
          detectedLanguage = findViewById(R.id.detectedLanguge);
          trans = findViewById(R.id.translate);
+        languageSpinner = findViewById(R.id.languageSpinner);
+        selectedLanguage = getResources().getStringArray(R.array.selectTargetLanguage);
+
+        // setting adapter in dropdown
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,selectedLanguage);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        languageSpinner.setAdapter(adapter);
+
          trans.setOnClickListener(new View.OnClickListener() {
+
              @Override
              public void onClick(View v) {
                if(sourceLanguage.getText().length() > 0){
-                  languageIdentity(sourceLanguage.getText().toString(),null);
+                   String spinerLanguge = languageSpinner.getSelectedItem().toString();
+                   languageIdentity(sourceLanguage.getText().toString(),spinerLanguge);
+                   Toast.makeText(getApplicationContext(),spinerLanguge,Toast.LENGTH_SHORT).show();
                }
                else {
                    Toast.makeText(getApplicationContext(),"text length should be minimum 10",Toast.LENGTH_SHORT).show();
@@ -46,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
          });
     }
     //end of on create
-    private void languageIdentity(String text, String target){
+    private void languageIdentity(String text,  String target){
         LanguageIdentifier languageIdentifier =
                 LanguageIdentification.getClient();
         languageIdentifier.identifyLanguage(text)
@@ -57,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (languageCode.equals("und")) {
                                     Log.i("TAG", "Can't identify language.");
                                 } else {
+                                    Toast.makeText(getApplicationContext(),languageCode,Toast.LENGTH_SHORT).show();
                                     translation(text,languageCode,target);
                                 }
                             }
@@ -78,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         if (target == null){
             target = TranslateLanguage.GERMAN;
         }
-
         TranslatorOptions options =
                 new TranslatorOptions.Builder()
                         .setSourceLanguage(source)

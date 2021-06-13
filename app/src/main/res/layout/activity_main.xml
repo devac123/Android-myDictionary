@@ -9,37 +9,57 @@
 
     <EditText
         android:id="@+id/sourceLanguge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:background="#FFFFFF"
+        android:layout_width="352dp"
+        android:layout_height="208dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/backshaps"
         android:ems="10"
         android:gravity="center"
         android:hint="Enter Text"
         android:inputType="textPersonName"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detectedLanguge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="378dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/backshaps"
+        android:gravity="center"
+        android:text="Translated Text"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/sourceLanguge"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="@+id/sourceLanguge"
         app:layout_constraintTop_toBottomOf="@+id/sourceLanguge" />
 
     <Button
         android:id="@+id/translate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/buttonshape"
         android:text="translate"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sourceLanguge"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:backgroundTint="#1E88E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detectedLanguge" />
+
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="128dp"
+        android:layout_height="51dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/detectedLanguge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sourceLanguge" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
